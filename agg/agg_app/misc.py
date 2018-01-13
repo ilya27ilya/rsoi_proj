@@ -49,15 +49,12 @@ class ArticleReq(BaseReq):
 
 
 
-    def post_one(self, author, text, topic):
-        post_json = {'author': author, 'text': text, 'topic': topic}
-        return self.post('article/', json=post_json)
-
-    def get_list(self, topic_id, page=1):
-        return self.get('article/?page=%s&topic=%s' % (page, topic_id))
+    #def get_list(self, topic_id, page=1):
+    #    return self.get('article/?page=%s&topic=%s' % (page, topic_id))
 
     def get_list_all(self, page=1):
         return self.get('article/?page=%s' % page)
+
 
 
 
@@ -71,9 +68,7 @@ class AuthorReq(BaseReq):
     def unlike(self, author_id):
         return self.patch('unlike/%s/' % author_id)
 
-    def post_one(self, login, email, info):
-        post_json = {'login': login, 'email': email, 'info': info}
-        return self.post('author/', json=post_json)
+
 
 
 
@@ -87,7 +82,4 @@ class TopicReq(BaseReq):
     def unlike(self, topic_id):
         return self.patch('unlike/%s/' % topic_id)
 
-    def post_one(self, title, info):
-        post_json = {'title': title, 'info': info}
-        return self.post('topic/', json=post_json)
 

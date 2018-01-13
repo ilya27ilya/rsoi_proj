@@ -28,8 +28,6 @@ thread.start()
 
 logger = logging.getLogger('agg_logger')
 
-
-
 class BaseView(View):
     def __init__(self, article_host='http://localhost:8005/',
                         author_host='http://localhost:8010/',
@@ -333,43 +331,8 @@ class ListArticleView(BaseView):
             return render(request, 'agg_app/error.html', context, status=status_code)
 
 
-class ListTopicView(BaseView):
-    # Добавить тему
-    def post(self, request):
-        title = request.POST.get('title')
-        info = request.POST.get('info')
-
-        try:
-            topic = self.topic.get_one_json(1)
-        except:
-            json_data = json.dumps({"error": "service unavailable"})
-            return HttpResponse(status=503, content=json_data, content_type='application/json')
-
-        topic_result = self.topic.post_one(title, info)
 
 
-        result = {"topic_result": topic_result.status_code}
-        logger.info(u"Добавить тему")
-        return JsonResponse(result)
 
-
-@method_decorator(csrf_exempt, name='dispatch')
-class ListAuthorView(BaseView):
-    # Добавить автора
-    def post(self, request):
-        login = request.POST.get('login')
-        email = request.POST.get('email')
-        info = request.POST.get('info')
-        try:
-            author= self.author.get_one_json(1)
-        except:
-            json_data = json.dumps({"error": "service unavailable"})
-            return HttpResponse(status=503, content=json_data, content_type='application/json')
-
-        author_result = self.author.post_one(login, email, info)
-
-        result = {"author_result": author_result.status_code}
-        logger.info(u"Добавить автора")
-        return JsonResponse(result)
 
 
