@@ -17,15 +17,6 @@ from .misc import TopicReq
 
 from .task import ReqTask
 
-from threading import Event
-from . import MyThread
-from . import storage
-
-stopFlag = Event()
-thread = MyThread(stopFlag)
-thread.start()
-
-
 logger = logging.getLogger('agg_logger')
 
 
@@ -117,8 +108,6 @@ class OneArticleView(BaseView):
                 except:
 
                     logger.info(u"Работа очереди")
-
-                    #storage.put(article_id)
                     ReqTask.delay("http://localhost:8000/agg/article/{0}/like/".format(article_id), "PATCH",article_id)
 
                     status_code = 503
@@ -142,7 +131,6 @@ class OneArticleView(BaseView):
                 except:
 
                     logger.info(u"Работа очереди")
-                    #storage.put(article_id)
                     ReqTask.delay("http://localhost:8000/agg/article/{0}/like/".format(article_id), "PATCH", article_id)
 
 
@@ -161,7 +149,6 @@ class OneArticleView(BaseView):
 
 
                     logger.info(u"Работа очереди")
-                    #storage.put(article_id)
                     ReqTask.delay("http://localhost:8000/agg/article/{0}/like/".format(article_id), "PATCH",article_id)
 
                     r = HttpResponseRedirect(reverse('agg_app:article_one', kwargs={"article_id": article_id}))
@@ -333,43 +320,7 @@ class ListArticleView(BaseView):
             return render(request, 'agg_app/error.html', context, status=status_code)
 
 
-class ListTopicView(BaseView):
-    # Добавить тему
-    def post(self, request):
-        title = request.POST.get('title')
-        info = request.POST.get('info')
-
-        try:
-            topic = self.topic.get_one_json(1)
-        except:
-            json_data = json.dumps({"error": "service unavailable"})
-            return HttpResponse(status=503, content=json_data, content_type='application/json')
-
-        topic_result = self.topic.post_one(title, info)
 
 
-        result = {"topic_result": topic_result.status_code}
-        logger.info(u"Добавить тему")
-        return JsonResponse(result)
-
-
-@method_decorator(csrf_exempt, name='dispatch')
-class ListAuthorView(BaseView):
-    # Добавить автора
-    def post(self, request):
-        login = request.POST.get('login')
-        email = request.POST.get('email')
-        info = request.POST.get('info')
-        try:
-            author= self.author.get_one_json(1)
-        except:
-            json_data = json.dumps({"error": "service unavailable"})
-            return HttpResponse(status=503, content=json_data, content_type='application/json')
-
-        author_result = self.author.post_one(login, email, info)
-
-        result = {"author_result": author_result.status_code}
-        logger.info(u"Добавить автора")
-        return JsonResponse(result)
 
 
