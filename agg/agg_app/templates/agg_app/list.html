@@ -1,0 +1,27 @@
+{% extends 'agg_app/base.html' %}
+
+{% block content %}
+    <div class="row">
+        <ul class="pagination hidden-xs pull-right">
+            {% if previous_page %}
+                <li><a href="?article_page={{ previous_page }}#article">«</a></li>
+            {% endif %}
+            {% for page in article_page_range %}
+                    <li><a href="?article_page={{ page }}#article">{{ page }}</a></li>
+            {% endfor %}
+            {% if next_page %}
+                <li><a href="?article_page={{ next_page }}#article">»</a></li>
+            {% endif %}
+        </ul>
+    </div>
+    {% for item in article %}
+        <div class="post">
+            <div class="date">
+                <p>Опубликовано: {{ item.created }}</p>
+            </div>
+            <h1><a href="{% url 'agg_app:article_one' article_id=item.id %}">{{ item.topic }}</a></h1>
+            <p class="article-list">{{ item.text|linebreaksbr }}</p>
+        </div>
+        <hr>
+    {% endfor %}
+{% endblock %}

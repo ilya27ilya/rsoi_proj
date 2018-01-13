@@ -1,0 +1,17 @@
+{% extends 'agg_app/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="error-template">
+                    <h1>Ошибка</h1>
+                    <h2>{{ status_code }} {{ error_short }}</h2>
+                    <div class="error-details">
+                        {{ error_description }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

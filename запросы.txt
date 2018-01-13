@@ -1,0 +1,7 @@
+Вывести статью (с автором и темой) curl http://localhost:8000/agg/article/1/
+
+Удалить статью (удалить лайки у автора и темы) curl -X DELETE http://localhost:8000/agg/article/1/
+ 
+Поставить лайк статье (увеличить лайки автора и темы) curl -X PATCH http://localhost:8000/agg/article/10/like/
+ 
+curl -X POST -d ‘author=1&text=It_is_new_article&topic=1’ http://localhost:8000/agg/article/

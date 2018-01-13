@@ -1,0 +1,46 @@
+{% extends 'agg_app/base.html' %}
+
+{% block content %}
+    <script type="text/javascript">
+        if (performance.navigation.type == 1) {
+            window.onload = function() {
+                err = document.getElementById("error_message")
+                if (err) {
+                    err.style.display = "none";
+                }
+            };
+        }
+    </script>
+    <style>
+        .red {
+            color: #ff0000;
+        }
+    </style>
+    <div class="post">
+        <div class="date">
+            {{ article.created }}
+        </div>
+        <div>
+            <label>Автор: {{ author.login }}</label><br>
+            <label>Тема: {{ topic.title }}</label><br>
+            <label>Лайки: {{ article.like_count }}</label><br>
+        </div>
+        {% if error_message %}
+            <label class="red" id="error_message">{{ error_message }}</label>
+        {% endif %}
+        <div class="my-form">
+            <form method="post" action="{% url 'agg_app:article_one' article_id=article.id %}">
+                <input type="hidden" name="like" value="like">
+                <button type="submit" class="btn btn-default">Поcтавить лайк</button>
+            </form>
+        </div>
+        <div class="my-form">
+            <form method="post" action="{% url 'agg_app:article_one' article_id=article.id %}">
+                <input type="hidden" name="delete" value="delete">
+                <button type="submit" class="btn btn-default">Удалить статью</button>
+            </form>
+        </div>
+        <br>
+        <p>{{ article.text|linebreaksbr }}</p>
+    </div>
+{% endblock %}
