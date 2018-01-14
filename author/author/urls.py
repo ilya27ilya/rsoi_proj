@@ -15,11 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from .views import ApiEndpoint
+from .views import secret_page
 
 urlpatterns = [
     url(r'^', include('author_app.urls')),
     url(r"^admin/", admin.site.urls),
     url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
-    url(r'^api/hello', ApiEndpoint.as_view())
+    url(r'^api/hello', secret_page.as_view())
 ]
