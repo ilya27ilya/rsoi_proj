@@ -374,6 +374,7 @@ class TokenView(BaseView):
         response.set_cookie('access_token', access_token, max_age=1800)
         response.set_cookie('refresh_token', refresh_token, max_age=1800)
 
+        response.delete_cookie('sessionid')
         return response
 
 @method_decorator(csrf_exempt, name='dispatch')
