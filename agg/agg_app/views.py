@@ -98,10 +98,13 @@ class OneArticleView(BaseView):
     # Поставить лайк статье (увеличить лайки автора и темы)
     def post(self, request, article_id):
         context = {}
+
         access_token = request.COOKIES.get("access_token")
-        print(access_token)
+        #print(request.COOKIES)
         refresh_token = request.COOKIES.get("refresh_token")
+
         try:
+
             token_is_valid = self.auth.check_access_token(access_token)
             if not token_is_valid:
                 access_token, refresh_token = self.auth.refresh_token(refresh_token)
@@ -114,6 +117,8 @@ class OneArticleView(BaseView):
                     r.set_cookie('access_token', access_token, max_age=1800)
                     r.set_cookie('refresh_token', refresh_token, max_age=1800)
                     return r
+
+
             if article_id == '0':
                 status_code = 400
                 context['status_code'] = status_code
@@ -374,7 +379,9 @@ class TokenView(BaseView):
         response.set_cookie('access_token', access_token, max_age=1800)
         response.set_cookie('refresh_token', refresh_token, max_age=1800)
 
-        response.delete_cookie('sessionid')
+        #response.delete_cookie('sessionid')
+
+        print(access_token)
         return response
 
 @method_decorator(csrf_exempt, name='dispatch')
