@@ -339,7 +339,7 @@ class TokenView(BaseView):
         print("Access token:", access_token)
         print("Refresh token:", refresh_token)
 
-        response = HttpResponseRedirect(reverse('http://127.0.0.1:8000'))
+        response = HttpResponseRedirect('http://127.0.0.1:8000')
 
         response.set_cookie('access_token', access_token, max_age=1800)
         response.set_cookie('refresh_token', refresh_token, max_age=1800)
