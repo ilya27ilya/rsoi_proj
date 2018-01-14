@@ -12,9 +12,34 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 import datetime
+from django.utils.deprecation import MiddlewareMixin
+
 EXPIRING_TOKEN_LIFESPAN = datetime.timedelta(seconds=42)
+
+
+class DisableCsrfCheck(MiddlewareMixin):
+    def process_request(self, req):
+        attr = '_dont_enforce_csrf_checks'
+        if not getattr(req, attr, False):
+            setattr(req, attr, True)
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+AUTHENTICATION_BACKENDS = (
+        'oauth2_provider.backends.OAuth2Backend',
+        'django.contrib.auth.backends.ModelBackend',
+        )
+
+OAUTH2_PROVIDER = {
+        'ACCESS_TOKEN_EXPIRE_SECONDS': 600,
+        'REFRESH_TOKEN_EXPIRE_SECONDS': 36000,
+        'AUTHORIZATION_CODE_EXPIRE_SECONDS': 600,
+        }
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -43,6 +68,8 @@ INSTALLED_APPS = [
     'author_app.apps.AuthorAppConfig',
     'rest_framework.authtoken',
     'rest_framework_expiring_authtoken',
+    'oauth2_provider',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -53,6 +80,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'author.urls'

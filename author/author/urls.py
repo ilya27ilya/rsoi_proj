@@ -14,7 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
+from django.contrib import admin
+from .views import ApiEndpoint
 
 urlpatterns = [
     url(r'^', include('author_app.urls')),
+    url(r"^admin/", admin.site.urls),
+    url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
+    url(r'^api/hello', ApiEndpoint.as_view())
 ]
