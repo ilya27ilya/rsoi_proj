@@ -143,15 +143,16 @@ class TopicReq(BaseReq):
     def unlike(self, topic_id):
         return self.patch('unlike/%s/' % topic_id)
 
+
 class AuthReq(BaseReq):
     def check_access_token(self, access_token):
         headers = {'Authorization': 'Bearer %s' % access_token}
-        check = self.get('secret', headers=headers)
+        check = requests.get('http://localhost:8010/secret', headers=headers)
         return check.text == 'OK'
 
     def check_access_token_json(self, access_token):
         headers = {'Authorization': 'Bearer %s' % access_token}
-        check = self.get('secret', headers=headers)
+        check = requests.get('http://localhost:8010/secret', headers=headers)
         return check.text == 'OK'
 
     def create_authorization_link(self):

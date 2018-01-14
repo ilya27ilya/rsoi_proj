@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^$', views.ListArticleView.as_view(), name='article_list'),
 
     url(r'^token/$', views.TokenView.as_view(), name='token'),
+    url(r'^auth/$', views.AuthView.as_view(), name='auth'),
 ]

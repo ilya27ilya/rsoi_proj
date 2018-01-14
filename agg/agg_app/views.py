@@ -14,6 +14,7 @@ from celery.task import Task
 from .misc import ArticleReq
 from .misc import AuthorReq
 from .misc import TopicReq
+from .misc import AuthReq
 
 from .task import ReqTask
 
@@ -22,13 +23,15 @@ logger = logging.getLogger('agg_logger')
 
 
 class BaseView(View):
-    def __init__(self, article_host='http://localhost:8005/',
-                        author_host='http://localhost:8010/',
-                        topic_host='http://localhost:8015/'):
+        article = ArticleReq('http://localhost:8005/')
+        author = AuthorReq('http://localhost:8010/')
+        topic = TopicReq('http://localhost:8015/')
+        auth = AuthReq('http://localhost:8010/')
 
-        self.article = ArticleReq(article_host)
-        self.author = AuthorReq(author_host)
-        self.topic = TopicReq(topic_host)
+        def error_response(self, status, json_body):
+            return HttpResponse(status=status,
+                                content=json.dumps(json_body),
+                                content_type='application/json')
 
 
 @method_decorator(csrf_exempt, name='dispatch')
