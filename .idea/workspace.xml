@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bac3db9a-763f-457c-95e6-58aaf00b6add" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/author/author/registration/login.html" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/article/db.sqlite3" afterPath="$PROJECT_DIR$/article/db.sqlite3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/author/db.sqlite3" afterPath="$PROJECT_DIR$/author/db.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/author/author/settings.py" afterPath="$PROJECT_DIR$/author/author/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/author/author/urls.py" afterPath="$PROJECT_DIR$/author/author/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/topic/db.sqlite3" afterPath="$PROJECT_DIR$/topic/db.sqlite3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/agg/agg_app/misc.py" afterPath="$PROJECT_DIR$/agg/agg_app/misc.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/agg/agg_app/urls.py" afterPath="$PROJECT_DIR$/agg/agg_app/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/agg/agg_app/views.py" afterPath="$PROJECT_DIR$/agg/agg_app/views.py" />
     </list>
     <ignored path="rsoi4.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,23 +27,33 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/author/author/urls.py">
+      <file leaf-file-name="misc.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/agg/agg_app/misc.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="25" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
+            <state relative-caret-position="128">
+              <caret line="157" column="88" selection-start-line="157" selection-start-column="47" selection-end-line="157" selection-end-column="88" />
               <folding>
-                <element signature="e#641#682#0" expanded="true" />
+                <element signature="e#0#15#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="misc.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/agg/agg_app/misc.py">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/agg/agg_app/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="17" column="32" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
+            <state relative-caret-position="443">
+              <caret line="340" column="71" selection-start-line="340" selection-start-column="9" selection-end-line="340" selection-end-column="71" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/agg/agg_app/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -66,9 +77,7 @@
       <list>
         <option value="$PROJECT_DIR$/agg/agg_app/templates/agg_app/detail.html" />
         <option value="$PROJECT_DIR$/agg/agg_app/task.py" />
-        <option value="$PROJECT_DIR$/agg/agg_app/urls.py" />
         <option value="$PROJECT_DIR$/agg/agg_app/__init__.py" />
-        <option value="$PROJECT_DIR$/agg/agg_app/views.py" />
         <option value="$PROJECT_DIR$/agg/agg/settings.py" />
         <option value="$PROJECT_DIR$/article/article_app/urls.py" />
         <option value="$PROJECT_DIR$/author/author_app/urls.py" />
@@ -77,12 +86,14 @@
         <option value="$PROJECT_DIR$/topic/topic/settings.py" />
         <option value="$PROJECT_DIR$/article/article/settings.py" />
         <option value="$PROJECT_DIR$/article/article_app/views.py" />
-        <option value="$PROJECT_DIR$/agg/agg_app/misc.py" />
         <option value="$PROJECT_DIR$/author/author_app/views.py" />
         <option value="$PROJECT_DIR$/author/author/views.py" />
         <option value="$PROJECT_DIR$/author/author/registration/login.html" />
         <option value="$PROJECT_DIR$/author/author/urls.py" />
         <option value="$PROJECT_DIR$/author/author/settings.py" />
+        <option value="$PROJECT_DIR$/agg/agg_app/urls.py" />
+        <option value="$PROJECT_DIR$/agg/agg_app/views.py" />
+        <option value="$PROJECT_DIR$/agg/agg_app/misc.py" />
       </list>
     </option>
   </component>
@@ -437,6 +448,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4785">
           <caret line="319" column="54" selection-start-line="319" selection-start-column="54" selection-end-line="319" selection-end-column="54" />
+          <folding>
+            <element signature="e#0#14#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -500,6 +514,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="14" column="27" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#14#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -573,24 +590,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/agg/agg_app/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="69" selection-start-line="9" selection-start-column="69" selection-end-line="9" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/agg/agg_app/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agg/agg_app/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-120">
-          <caret line="150" column="50" selection-start-line="150" selection-start-column="50" selection-end-line="150" selection-end-column="50" />
         </state>
       </provider>
     </entry>
@@ -730,16 +733,8 @@
         <state relative-caret-position="260">
           <caret line="99" column="51" selection-start-line="99" selection-start-column="51" selection-end-line="99" selection-end-column="51" />
           <folding>
-            <element signature="e#310#319#0" expanded="true" />
+            <element signature="e#310#319#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agg/agg_app/misc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="17" column="32" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -747,9 +742,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" column="36" selection-start-line="5" selection-start-column="36" selection-end-line="5" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#57#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -758,7 +751,33 @@
         <state relative-caret-position="165">
           <caret line="11" column="25" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
           <folding>
-            <element signature="e#641#682#0" expanded="true" />
+            <element signature="e#641#682#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agg/agg_app/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agg/agg_app/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="443">
+          <caret line="340" column="71" selection-start-line="340" selection-start-column="9" selection-end-line="340" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agg/agg_app/misc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="157" column="88" selection-start-line="157" selection-start-column="47" selection-end-line="157" selection-end-column="88" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>

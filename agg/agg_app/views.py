@@ -323,4 +323,35 @@ class ListArticleView(BaseView):
 
 
 
+@method_decorator(csrf_exempt, name='dispatch')
+class TokenView(BaseView):
+    def get(self, request):
+        code = request.GET.get('code')
+        print("Got authorization code:", code)
+        print("Try to get access and refresh tokens")
+
+        redirect_uri = 'http://localhost:8000/' + 'token/'
+
+        access_token, refresh_token = self.auth.get_token_oauth(code, redirect_uri)
+        print("Access token:", access_token)
+        print("Refresh token:", refresh_token)
+
+        response = HttpResponseRedirect(reverse('http://127.0.0.1:8000'))
+
+        response.set_cookie('access_token', access_token, max_age=1800)
+        response.set_cookie('refresh_token', refresh_token, max_age=1800)
+
+        return response
+
+@method_decorator(csrf_exempt, name='dispatch')
+class AuthView(BaseView):
+    def get(self, request):
+        return HttpResponseRedirect(self.auth.create_authorization_link())
+
+
+
+
+
+
+
 

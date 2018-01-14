@@ -3,6 +3,12 @@ import datetime
 from django.http import HttpResponse
 
 
+CLIENT_ID = 'c9zxVoj3TEptwk5vldtc7EYaedcI6KlqYSXWq9bk'
+CLIENT_SECRET = 'bZ9rEvC2rhd2Crhgl9SbGtHld7fub5w2KW8FUBOQ4Ii23iqDWjOK7VYWCvxPKygTsFKdwiKlLEQQ4fPJClBixZylEZNExLs24de7QoHMUtxFexrGARYoKK5Cc448TdIq'
+
+CLIENT_ID_JSON = 'I4saB9ST0hELJTMSCu2SoG1z4r31BU7CacnA9zw6'
+CLIENT_SECRET_JSON = 'jIaiNEUlySpGO4eSdU2FwRSBeZs0x1xmuPXnN39EKwCzgrUuZdCBIZOjP2Qaz23bBqZOR5rfuUNjELjqm1piKmnR3UHIrNYS7bmqOPtzq3p6kpl4VCyNbs1Nlmvyimoq'
+
 class BaseReq():
     def __init__(self, host, app_id='cska', app_secret='moscow'):
         self.host = host
@@ -58,17 +64,21 @@ class BaseReq():
             r = requests.post(self.host + query_string, data=json, auth=auth, headers=headers)
         return r
 
-    def patch(self, query_string, json, headers=None):
+    def patch(self, query_string, headers=None):
+    #def patch(self, query_string, json, headers=None):
         if headers:
             if not headers.get("Authorization"):
                 headers["Authorization"] = "Token %s" % self.token
         else:
             headers = self.headers
-        r = requests.patch(self.host + query_string, json=json, headers=headers)
+
+        #r = requests.patch(self.host + query_string, json=json, headers=headers)
+        r = requests.patch(self.host + query_string, headers=headers)
         if r.status_code == 401:
             self.get_token()
             headers["Authorization"] = "Token %s" % self.token
-            r = requests.patch(self.host + query_string, json=json, headers=headers)
+            #r = requests.patch(self.host + query_string, json=json, headers=headers)
+            r = requests.patch(self.host + query_string, headers=headers)
         return r
 
     def delete(self, query_string, headers=None):
@@ -123,7 +133,6 @@ class AuthorReq(BaseReq):
 
 
 
-
 class TopicReq(BaseReq):
     def get_one_json(self, topic_id):
         return self.get_json('topic/%s/' % topic_id)
@@ -133,5 +142,48 @@ class TopicReq(BaseReq):
 
     def unlike(self, topic_id):
         return self.patch('unlike/%s/' % topic_id)
+
+class AuthReq(BaseReq):
+    def check_access_token(self, access_token):
+        headers = {'Authorization': 'Bearer %s' % access_token}
+        check = self.get('secret', headers=headers)
+        return check.text == 'OK'
+
+    def check_access_token_json(self, access_token):
+        headers = {'Authorization': 'Bearer %s' % access_token}
+        check = self.get('secret', headers=headers)
+        return check.text == 'OK'
+
+    def create_authorization_link(self):
+        return self.host + 'o/authorize/?state=random_state_stringfgsfds&client_id=%s&response_type=code' % CLIENT_ID
+
+    def create_authorization_link_json(self):
+        return self.host + 'o/authorize/?state=random_state_stringfgsfds&client_id=%s&response_type=code' % CLIENT_ID_JSON
+
+    def get_token_oauth(self, code, redirect_uri):
+        post_json = {'code': code, 'grant_type': 'authorization_code', 'redirect_uri': redirect_uri}
+        response = requests.post(self.host + 'o/token/', post_json, auth=(CLIENT_ID, CLIENT_SECRET))
+        answer = response.json()
+        return answer.get('access_token'), answer.get('refresh_token')
+
+    def get_token_oauth_json(self, code, redirect_uri):
+        post_json = {'code': code, 'grant_type': 'authorization_code', 'redirect_uri': redirect_uri}
+        response = requests.post(self.host + 'o/token/', post_json, auth=(CLIENT_ID_JSON, CLIENT_SECRET_JSON))
+        answer = response.json()
+        return answer.get('access_token'), answer.get('refresh_token')
+
+    def refresh_token(self, refresh_token):
+        post_json = {'refresh_token': refresh_token, 'grant_type': 'refresh_token'}
+        response = requests.post(self.host + 'o/token/', post_json, auth=(CLIENT_ID, CLIENT_SECRET))
+        answer = response.json()
+        return answer.get('access_token'), answer.get('refresh_token')
+
+    def refresh_token_json(self, refresh_token):
+        post_json = {'refresh_token': refresh_token, 'grant_type': 'refresh_token'}
+        response = requests.post(self.host + 'o/token/', post_json, auth=(CLIENT_ID_JSON, CLIENT_SECRET_JSON))
+        answer = response.json()
+        return answer.get('access_token'), answer.get('refresh_token')
+
+
 
 
