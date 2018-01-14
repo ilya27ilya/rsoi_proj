@@ -23,5 +23,5 @@ urlpatterns = [
     url(r"^admin/", admin.site.urls),
     url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     #url(r'^api/hello', secret_page.as_view())
-    url(r'^accounts/login/$', auth_views.LoginView.as_view(template_name='registration/login.html')),
+    url(r'^accounts/login/$', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
 ]
