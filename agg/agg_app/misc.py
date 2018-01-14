@@ -21,66 +21,66 @@ class BaseReq():
 
     def get(self, query_string, headers=None):
         if headers:
-            if not headers.get("Login"):
-                headers["Login"] = "Token %s" % self.token
+            if not headers.get("Authorization"):
+                headers["Authorization"] = "Token %s" % self.token
         else:
             headers = self.headers
         r = requests.get(self.host + query_string, headers=headers)
         if r.status_code == 401:
             self.get_token()
-            headers["Login"] = "Token %s" % self.token
+            headers["Authorization"] = "Token %s" % self.token
             r = requests.get(self.host + query_string, headers=headers)
         return r
 
     def get_json(self, query_string, headers=None):
         if headers:
-            if not headers.get("Login"):
-                headers["Login"] = "Token %s" % self.token
+            if not headers.get("Authorization"):
+                headers["Authorization"] = "Token %s" % self.token
         else:
             headers = self.headers
         r = requests.get(self.host + query_string, headers=headers)
         if r.status_code == 401:
             self.get_token()
-            headers["Login"] = "Token %s" % self.token
+            headers["Authorization"] = "Token %s" % self.token
             r = requests.get(self.host + query_string, headers=headers)
         return r.json()
 
     def post(self, query_string, json, auth=None, headers=None):
         if headers:
-            if not headers.get("Login"):
-                headers["Login"] = "Token %s" % self.token
+            if not headers.get("Authorization"):
+                headers["Authorization"] = "Token %s" % self.token
         else:
             headers = self.headers
         r = requests.post(self.host + query_string, data=json, auth=auth, headers=headers)
         if r.status_code == 401:
             self.get_token()
-            headers["Login"] = "Token %s" % self.token
+            headers["Authorization"] = "Token %s" % self.token
             r = requests.post(self.host + query_string, data=json, auth=auth, headers=headers)
         return r
 
     def patch(self, query_string, json, headers=None):
         if headers:
-            if not headers.get("Login"):
-                headers["Login"] = "Token %s" % self.token
+            if not headers.get("Authorization"):
+                headers["Authorization"] = "Token %s" % self.token
         else:
             headers = self.headers
         r = requests.patch(self.host + query_string, json=json, headers=headers)
         if r.status_code == 401:
             self.get_token()
-            headers["Login"] = "Token %s" % self.token
+            headers["Authorization"] = "Token %s" % self.token
             r = requests.patch(self.host + query_string, json=json, headers=headers)
         return r
 
     def delete(self, query_string, headers=None):
         if headers:
-            if not headers.get("Login"):
-                headers["Login"] = "Token %s" % self.token
+            if not headers.get("Authorization"):
+                headers["Authorization"] = "Token %s" % self.token
         else:
             headers = self.headers
         r = requests.delete(self.host + query_string, headers=headers)
         if r.status_code == 401:
             self.get_token()
-            headers["Login"] = "Token %s" % self.token
+            headers["Authorization"] = "Token %s" % self.token
             r = requests.delete(self.host + query_string, headers=headers)
         return r
 
@@ -91,7 +91,7 @@ class BaseReq():
 
     @property
     def headers(self):
-        return {"Login": "Token %s" % self.token}
+        return {"Authorization": "Token %s" % self.token}
 
 
 
