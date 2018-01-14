@@ -231,7 +231,22 @@ class OneArticleView(BaseView):
     # Удалить статью (удалить лайки у автора и темы)
     def delete(self, request, article_id):
         context = {}
+        access_token = request.COOKIES.get("access_token")
+        refresh_token = request.COOKIES.get("refresh_token")
         try:
+            token_is_valid = self.auth.check_access_token(access_token)
+            if not token_is_valid:
+                access_token, refresh_token = self.auth.refresh_token(refresh_token)
+                if not access_token or not refresh_token:
+                    status_code = 403
+                    context['status_code'] = status_code
+                    context['error_short'] = u"Нет доступа"
+                    context['error_description'] = u"У вас недостаточно прав, необходимо авторизоваться"
+                    r = render(request, 'aggregation/error.html', context, status=status_code)
+                    r.set_cookie('access_token', access_token, max_age=1800)
+                    r.set_cookie('refresh_token', refresh_token, max_age=1800)
+                    return r
+
             if article_id == '0':
                 status_code = 400
                 context['status_code'] = status_code
