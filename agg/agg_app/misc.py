@@ -148,12 +148,14 @@ class AuthReq(BaseReq):
     def check_access_token(self, access_token):
         headers = {'Authorization': 'Bearer %s' % access_token}
         check = requests.get('http://localhost:8010/secret', headers=headers)
-        return check.text == 'OK'
+        #print(check.text)
+        return check.text == 'Secret contents!'
 
     def check_access_token_json(self, access_token):
         headers = {'Authorization': 'Bearer %s' % access_token}
         check = requests.get('http://localhost:8010/secret', headers=headers)
-        return check.text == 'OK'
+        #print(check.text)
+        return check.text == 'Secret contents!'
 
     def create_authorization_link(self):
         return self.host + 'o/authorize/?state=random_state_stringfgsfds&client_id=%s&response_type=code' % CLIENT_ID

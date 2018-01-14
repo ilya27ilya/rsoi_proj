@@ -99,6 +99,7 @@ class OneArticleView(BaseView):
     def post(self, request, article_id):
         context = {}
         access_token = request.COOKIES.get("access_token")
+        print(access_token)
         refresh_token = request.COOKIES.get("refresh_token")
         try:
             token_is_valid = self.auth.check_access_token(access_token)
