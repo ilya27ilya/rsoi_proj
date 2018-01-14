@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import datetime
+EXPIRING_TOKEN_LIFESPAN = datetime.timedelta(seconds=42)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -40,6 +42,8 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework',
     'article_app.apps.ArticleAppConfig',
+    'rest_framework.authtoken',
+    'rest_framework_expiring_authtoken',
 ]
 
 MIDDLEWARE = [

@@ -50,6 +50,9 @@ INSTALLED_APPS = [
     'django_nose',
     'djcelery',
     'kombu.transport',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_framework_expiring_authtoken',
 ]
 
 MIDDLEWARE = [

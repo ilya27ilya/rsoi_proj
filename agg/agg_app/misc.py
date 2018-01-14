@@ -4,8 +4,12 @@ from django.http import HttpResponse
 
 
 class BaseReq():
-    def __init__(self, host):
+    def __init__(self, host, app_id='cska', app_secret='moscow'):
         self.host = host
+        self.app_id = app_id
+        self.app_secret = app_secret
+        self.token = None
+
 
     def response_convert(self, requests_response):
         django_response = HttpResponse(
@@ -15,25 +19,80 @@ class BaseReq():
         )
         return django_response
 
-    def get(self, query_string):
-        r = requests.get(self.host + query_string)
+    def get(self, query_string, headers=None):
+        if headers:
+            if not headers.get("Login"):
+                headers["Login"] = "Token %s" % self.token
+        else:
+            headers = self.headers
+        r = requests.get(self.host + query_string, headers=headers)
+        if r.status_code == 401:
+            self.get_token()
+            headers["Login"] = "Token %s" % self.token
+            r = requests.get(self.host + query_string, headers=headers)
         return r
 
-    def get_json(self, query_string):
-        r = requests.get(self.host + query_string)
+    def get_json(self, query_string, headers=None):
+        if headers:
+            if not headers.get("Login"):
+                headers["Login"] = "Token %s" % self.token
+        else:
+            headers = self.headers
+        r = requests.get(self.host + query_string, headers=headers)
+        if r.status_code == 401:
+            self.get_token()
+            headers["Login"] = "Token %s" % self.token
+            r = requests.get(self.host + query_string, headers=headers)
         return r.json()
 
-    def post(self, query_string, json):
-        r = requests.post(self.host + query_string, json=json)
+    def post(self, query_string, json, auth=None, headers=None):
+        if headers:
+            if not headers.get("Login"):
+                headers["Login"] = "Token %s" % self.token
+        else:
+            headers = self.headers
+        r = requests.post(self.host + query_string, data=json, auth=auth, headers=headers)
+        if r.status_code == 401:
+            self.get_token()
+            headers["Login"] = "Token %s" % self.token
+            r = requests.post(self.host + query_string, data=json, auth=auth, headers=headers)
         return r
 
-    def patch(self, query_string, json=None):
-        r = requests.patch(self.host + query_string, json=json)
+    def patch(self, query_string, json, headers=None):
+        if headers:
+            if not headers.get("Login"):
+                headers["Login"] = "Token %s" % self.token
+        else:
+            headers = self.headers
+        r = requests.patch(self.host + query_string, json=json, headers=headers)
+        if r.status_code == 401:
+            self.get_token()
+            headers["Login"] = "Token %s" % self.token
+            r = requests.patch(self.host + query_string, json=json, headers=headers)
         return r
 
-    def delete(self, query_string):
-        r = requests.delete(self.host + query_string)
+    def delete(self, query_string, headers=None):
+        if headers:
+            if not headers.get("Login"):
+                headers["Login"] = "Token %s" % self.token
+        else:
+            headers = self.headers
+        r = requests.delete(self.host + query_string, headers=headers)
+        if r.status_code == 401:
+            self.get_token()
+            headers["Login"] = "Token %s" % self.token
+            r = requests.delete(self.host + query_string, headers=headers)
         return r
+
+    def get_token(self):
+        r = requests.post(self.host + "token/", {"username": self.app_id, "password": self.app_secret})
+        r = r.json()
+        self.token = r.get("token")
+
+    @property
+    def headers(self):
+        return {"Login": "Token %s" % self.token}
+
 
 
 class ArticleReq(BaseReq):

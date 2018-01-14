@@ -6,12 +6,23 @@ from django.views.decorators.csrf import csrf_exempt
 from author_app.models import Author
 from author_app.serializers import AuthorSerializer
 
+from rest_framework_expiring_authtoken.authentication import ExpiringTokenAuthentication#
+from rest_framework.permissions import IsAuthenticated#
+from django.contrib.auth.models import User#
+from rest_framework.authtoken.models import Token#
+
+
+for user in User.objects.all():
+    Token.objects.get_or_create(user=user)
+
 
 class AuthorPagination(pagination.PageNumberPagination):
     page_size = 5
 
 
 class AuthorViewSet(viewsets.ModelViewSet):
+    authentication_classes = (ExpiringTokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
     queryset = Author.objects.all()
     serializer_class = AuthorSerializer
     pagination_class = AuthorPagination
