@@ -165,6 +165,7 @@ class AuthReq(BaseReq):
 
     def get_token_oauth(self, code, redirect_uri):
         post_json = {'code': code, 'grant_type': 'authorization_code', 'redirect_uri': redirect_uri}
+
         response = requests.post(self.host + 'o/token/', post_json, auth=(CLIENT_ID, CLIENT_SECRET))
         answer = response.json()
         return answer.get('access_token'), answer.get('refresh_token')
